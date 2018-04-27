@@ -1,4 +1,4 @@
-package consilsd
+package consulsd
 
 import (
 	"net"

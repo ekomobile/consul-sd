@@ -52,16 +52,24 @@ type service struct {
 }
 
 func (s *service) Addr() (net.Addr, error) {
-	return net.ResolveTCPAddr("ip", s.address)
+	ip, err := net.ResolveIPAddr("ip", s.address)
+	if err != nil {
+		return nil, err
+	}
+
+	return &net.TCPAddr{
+		IP:   ip.IP,
+		Port: 0,
+	}, nil
 }
 
 func (s *service) MustAddr() net.Addr {
-	tcp, err := net.ResolveTCPAddr("ip", s.address)
+	addr, err := s.Addr()
 	if err != nil {
 		panic(err)
 	}
 
-	return tcp
+	return addr
 }
 
 func (s *service) Address() string {

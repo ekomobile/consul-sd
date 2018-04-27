@@ -59,7 +59,7 @@ func (s *service) Addr() (net.Addr, error) {
 
 	return &net.TCPAddr{
 		IP:   ip.IP,
-		Port: 0,
+		Port: s.port,
 	}, nil
 }
 

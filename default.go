@@ -11,13 +11,19 @@ type serviceDiscovery struct {
 }
 
 func NewServiceDiscovery() (ServiceDiscovery, error) {
-	c, err := api.NewClient(api.DefaultConfig())
+	client, err := api.NewClient(api.DefaultConfig())
 	if err != nil {
 		return nil, err
 	}
 
 	return &serviceDiscovery{
-		consul: c,
+		consul: client,
+	}, nil
+}
+
+func NewServiceDiscoveryWithClient(client *api.Client) (ServiceDiscovery, error) {
+	return &serviceDiscovery{
+		consul: client,
 	}, nil
 }
 
